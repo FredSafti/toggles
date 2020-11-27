@@ -2,6 +2,7 @@
 
 namespace Tests\Application\ListBooks;
 
+use Application\ListBooks\Book as ListBooksBook;
 use Application\ListBooks\ListBooks;
 use Domain\Entity\Book;
 use PHPUnit\Framework\TestCase;
@@ -46,8 +47,8 @@ class ListBooksTest extends TestCase
 
         $list = $listBooks->get();
 
-        $this->assertIsArray($list[0]);
-        $this->assertSame('1', $list[0]['id']);
-        $this->assertSame('Second', $list[1]['name']);
+        $this->assertInstanceOf(ListBooksBook::class, $list[0]);
+        $this->assertSame('1', $list[0]->id);
+        $this->assertSame('Second', $list[1]->name);
     }
 }

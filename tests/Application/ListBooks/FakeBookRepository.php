@@ -2,7 +2,6 @@
 
 namespace Tests\Application\ListBooks;
 
-use Domain\Entity\Book;
 use Domain\Repository\BookRepository;
 
 class FakeBookRepository implements BookRepository

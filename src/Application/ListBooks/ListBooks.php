@@ -20,10 +20,7 @@ class ListBooks
     {
         $list = array();
         foreach($this->repository->getAll() as $book) {
-            $list[] = [
-                'id' => $book->getId(),
-                'name' => $book->getName()
-            ];
+            $list[] = new Book($book->getId(), $book->getName());
         }
 
         return $list;
