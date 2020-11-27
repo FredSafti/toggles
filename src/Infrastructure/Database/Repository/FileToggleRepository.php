@@ -8,16 +8,17 @@ use Domain\Repository\ToggleRepository;
 class FileToggleRepository implements ToggleRepository
 {
     private string $filename;
-    private array $catalog;
+    private bool $loaded = false;
+    private array $catalog = array();
 
     public function __construct(string $projectDir)
     {
         $this->filename = $projectDir . '/var/toggles';
     }
 
-    private function loadCatalog(): void
+    private function needCatalog(): void
     {
-        if (is_null($this->catalog)) {
+        if (! $this->loaded) {
             if (! is_file($this->filename)) {
                 $this->catalog = array();
                 return;
@@ -26,6 +27,8 @@ class FileToggleRepository implements ToggleRepository
             $this->catalog = unserialize(
                 file_get_contents($this->filename)
             );
+
+            $this->loaded = true;
         }
     }
 
@@ -34,20 +37,26 @@ class FileToggleRepository implements ToggleRepository
         file_put_contents($this->filename, serialize($this->catalog));
     }
 
+    public function getAll(): array
+    {
+        $this->needCatalog();
+        return $this->catalog;
+    }
+
     public function get(string $name): Toggle
     {
-        $this->loadCatalog();
+        $this->needCatalog();
 
-        if (isset($this->catalog[$name])) {
-            return $this->catalog[$name];
+        if (! isset($this->catalog[$name])) {
+            $this->catalog[$name] = new Toggle($name);
         }
 
-        return new Toggle($name);
+        return $this->catalog[$name];
     }
 
     public function save(Toggle $toggle): void
     {
-        $this->loadCatalog();
+        $this->needCatalog();
 
         $this->catalog[$toggle->name] = $toggle;
         $this->saveCatalog();

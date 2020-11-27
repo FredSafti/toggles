@@ -13,7 +13,7 @@ class SwitchToggleHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(SwitchToggle $switchToggle): void
+    public function handle(SwitchToggle $switchToggle): void
     {
         if ($switchToggle->action !== SwitchToggle::ACTION_SWITCH_ON
         && $switchToggle->action !== SwitchToggle::ACTION_SWITCH_OFF) {

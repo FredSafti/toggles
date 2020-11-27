@@ -4,18 +4,74 @@ namespace Tests\Application\SwitchToggle;
 
 use Application\SwitchToggle\SwitchToggle;
 use Application\SwitchToggle\SwitchToggleHandler;
-use Domain\Repository\ToggleRepository;
+use Domain\Entity\Toggle;
 use PHPUnit\Framework\TestCase;
 
 class SwitchToggleTest extends TestCase
 {
     public function testActivate(): void
     {
-        $switch = new SwitchToggle('test', SwitchToggle::ACTION_SWITCH_ON);
-        $switcher = new SwitchToggleHandler($this->createMock(ToggleRepository::class));
+        $toggleName = 'test';
+        $repository = New FakeToggleRepository();
+        $switch = new SwitchToggle($toggleName, SwitchToggle::ACTION_SWITCH_ON);
+        $handler = new SwitchToggleHandler($repository);
 
-        $switcher($switch);
+        $handler->handle($switch);
 
-        $this->assertSame(1,1);
+        $toggle = $repository->get($toggleName);
+        $this->assertInstanceOf(Toggle::class, $toggle);
+        $this->assertSame($toggleName, $toggle->name);
+        $this->assertTrue($toggle->active);
+    }
+
+    public function testInactive(): void
+    {
+        $toggleName = 'test';
+        $repository = New FakeToggleRepository();
+        $switch = new SwitchToggle($toggleName, SwitchToggle::ACTION_SWITCH_OFF);
+        $handler = new SwitchToggleHandler($repository);
+
+        $handler->handle($switch);
+
+        $toggle = $repository->get($toggleName);
+        $this->assertInstanceOf(Toggle::class, $toggle);
+        $this->assertSame($toggleName, $toggle->name);
+        $this->assertFalse($toggle->active);
+    }
+
+    public function testActiveExisting(): void
+    {
+        $toggleName = 'test';
+        $toggle = new Toggle($toggleName);
+        $repository = New FakeToggleRepository();
+        $repository->save($toggle);
+
+        $switch = new SwitchToggle($toggleName, SwitchToggle::ACTION_SWITCH_ON);
+        $handler = new SwitchToggleHandler($repository);
+
+        $handler->handle($switch);
+
+        $changedToggle = $repository->get($toggleName);
+        $this->assertSame($toggle, $changedToggle);
+        $this->assertTrue($changedToggle->active);
+    }
+
+    public function testInactiveExisting(): void
+    {
+        $toggleName = 'test';
+        $toggle = new Toggle($toggleName);
+        $toggle->active = true;
+
+        $repository = New FakeToggleRepository();
+        $repository->save($toggle);
+
+        $switch = new SwitchToggle($toggleName, SwitchToggle::ACTION_SWITCH_OFF);
+        $handler = new SwitchToggleHandler($repository);
+
+        $handler->handle($switch);
+
+        $changedToggle = $repository->get($toggleName);
+        $this->assertSame($toggle, $changedToggle);
+        $this->assertFalse($changedToggle->active);
     }
 }
