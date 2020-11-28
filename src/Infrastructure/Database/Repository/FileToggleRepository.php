@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infrastructure\Database\Repository;
 
 use Domain\Entity\Toggle;

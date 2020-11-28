@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infrastructure\Symfony\Controller;
 
 use Application\ListBooks\ListBooks;

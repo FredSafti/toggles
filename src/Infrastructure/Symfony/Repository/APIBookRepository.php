@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infrastructure\Symfony\Repository;
 
 use Domain\Entity\Book;
@@ -23,7 +25,7 @@ class APIBookRepository implements BookRepository
         $rawList = $response->toArray();
 
         $list = array();
-        foreach($rawList['docs'] as $rawBook) {
+        foreach ($rawList['docs'] as $rawBook) {
             $list[] = new Book($rawBook['_id'], $rawBook['name']);
         }
 

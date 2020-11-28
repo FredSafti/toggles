@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\ListToggles;
 
 use Domain\Entity\Toggle;

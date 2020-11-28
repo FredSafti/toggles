@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Application\ListBooks;
 
 use Application\ListBooks\Book as ListBooksBook;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Application\SwitchToggle;
 
 use Application\SwitchToggle\SwitchToggle;
@@ -12,7 +14,7 @@ class SwitchToggleTest extends TestCase
     public function testActivate(): void
     {
         $toggleName = 'test';
-        $repository = New FakeToggleRepository();
+        $repository = new FakeToggleRepository();
         $switch = new SwitchToggle($toggleName, SwitchToggle::ACTION_SWITCH_ON);
         $handler = new SwitchToggleHandler($repository);
 
@@ -27,7 +29,7 @@ class SwitchToggleTest extends TestCase
     public function testInactive(): void
     {
         $toggleName = 'test';
-        $repository = New FakeToggleRepository();
+        $repository = new FakeToggleRepository();
         $switch = new SwitchToggle($toggleName, SwitchToggle::ACTION_SWITCH_OFF);
         $handler = new SwitchToggleHandler($repository);
 
@@ -43,7 +45,7 @@ class SwitchToggleTest extends TestCase
     {
         $toggleName = 'test';
         $toggle = new Toggle($toggleName);
-        $repository = New FakeToggleRepository();
+        $repository = new FakeToggleRepository();
         $repository->save($toggle);
 
         $switch = new SwitchToggle($toggleName, SwitchToggle::ACTION_SWITCH_ON);
@@ -62,7 +64,7 @@ class SwitchToggleTest extends TestCase
         $toggle = new Toggle($toggleName);
         $toggle->active = true;
 
-        $repository = New FakeToggleRepository();
+        $repository = new FakeToggleRepository();
         $repository->save($toggle);
 
         $switch = new SwitchToggle($toggleName, SwitchToggle::ACTION_SWITCH_OFF);

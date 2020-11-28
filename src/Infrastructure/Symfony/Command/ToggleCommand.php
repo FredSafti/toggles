@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infrastructure\Symfony\Command;
 
 use Application\ListToggles\ListToggles;
@@ -39,7 +41,7 @@ class ToggleCommand extends Command
 
         if (is_null($name)) {
             $list = array();
-            foreach($this->lister->get() as $toggle) {
+            foreach ($this->lister->get() as $toggle) {
                 $list[] = [
                     'name' => $toggle->name,
                     'state' => ($toggle->active ? 'ON' : 'OFF')
