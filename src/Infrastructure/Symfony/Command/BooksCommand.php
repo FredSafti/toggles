@@ -36,7 +36,15 @@ class BooksCommand extends Command
             return Command::SUCCESS;
         }
 
-        $io->table(array_keys($books[0]), $books);
+        $list = array();
+        foreach ($books as $book) {
+            $list[] = [
+                'id' => $book->id,
+                'name' => $book->name,
+            ];
+        }
+
+        $io->table(['id', 'name'], $list);
 
         return Command::SUCCESS;
     }

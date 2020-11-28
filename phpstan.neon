@@ -1,0 +1,6 @@
+parameters:
+    level : max
+    dynamicConstantNames:
+        - Application\ListBooks\ListBooks::FEATURE_AVAILABLE
+includes:
+    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon

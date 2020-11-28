@@ -6,11 +6,14 @@ namespace Infrastructure\Database\Repository;
 
 use Domain\Entity\Toggle;
 use Domain\Repository\ToggleRepository;
+use function Safe\file_get_contents;
+use function Safe\file_put_contents;
 
 class FileToggleRepository implements ToggleRepository
 {
     private string $filename;
     private bool $loaded = false;
+    /** @var Toggle[] */
     private array $catalog = array();
 
     public function __construct(string $projectDir)

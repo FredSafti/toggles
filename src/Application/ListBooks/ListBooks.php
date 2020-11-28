@@ -18,6 +18,7 @@ class ListBooks
         $this->repository = $repository;
     }
 
+    /** @return Book[] */
     public function get(): array
     {
         $list = array();

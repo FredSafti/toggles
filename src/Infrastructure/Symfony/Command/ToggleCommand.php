@@ -7,6 +7,7 @@ namespace Infrastructure\Symfony\Command;
 use Application\ListToggles\ListToggles;
 use Application\SwitchToggle\SwitchToggle;
 use Application\SwitchToggle\SwitchToggleHandler;
+use InvalidArgumentException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -37,35 +38,41 @@ class ToggleCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $name = $input->getArgument('toggleName');
+        $nameArgument = $input->getArgument('toggleName');
 
-        if (is_null($name)) {
-            $list = array();
-            foreach ($this->lister->get() as $toggle) {
-                $list[] = [
-                    'name' => $toggle->name,
-                    'state' => ($toggle->active ? 'ON' : 'OFF')
-                ];
-            }
-
-            if (empty($list)) {
-                $io->note('No toggle defined');
-                return Command::SUCCESS;
-            }
-
-            $io->table(['name', 'state'], $list);
+        if ((! is_string($nameArgument)) || (empty($nameArgument))) {
+            $this->showToggleList($io);
             return Command::SUCCESS;
         }
 
-        $state = SwitchToggle::ACTION_SWITCH_OFF;
-        if (strtolower($input->getArgument('state')) == 'on') {
+        $stateArgument = $input->getArgument('state');
+        if ((! is_string($stateArgument)) || (strtolower($stateArgument) !== 'on')) {
+            $state = SwitchToggle::ACTION_SWITCH_OFF;
+        } else {
             $state = SwitchToggle::ACTION_SWITCH_ON;
         }
 
-        $this->switcher->handle(new SwitchToggle($name, $state));
-
-        $io->success('"' . $name . '" toggle switched ' . $state);
+        $this->switcher->handle(new SwitchToggle($nameArgument, $state));
+        $io->success('"' . $nameArgument . '" toggle switched ' . $state);
 
         return Command::SUCCESS;
+    }
+
+    private function showToggleList(SymfonyStyle $io): void
+    {
+        $list = array();
+        foreach ($this->lister->get() as $toggle) {
+            $list[] = [
+                'name' => $toggle->name,
+                'state' => ($toggle->active ? 'ON' : 'OFF')
+            ];
+        }
+
+        if (empty($list)) {
+            $io->note('No toggle defined');
+            return;
+        }
+
+        $io->table(['name', 'state'], $list);
     }
 }
