@@ -7,6 +7,8 @@ namespace Infrastructure\Symfony\Repository;
 use Domain\Entity\Book;
 use Domain\Repository\BookRepository;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\HttpClient\CachingHttpClient;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class APIBookRepository implements BookRepository
 {
@@ -14,9 +16,13 @@ class APIBookRepository implements BookRepository
 
     private HttpClientInterface $client;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, string $cacheDir)
     {
-        $this->client = $client;
+        $this->client = new CachingHttpClient(
+            $client,
+            new Store($cacheDir . '/book-api'),
+            ['default_ttl' => 86400]
+        );
     }
 
     public function getAll(): array
