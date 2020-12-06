@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5bd81a0f5e301998f20d4d1a915ba70c",
+    "content-hash": "27b124bc8ed84b573d0d314d8871925f",
     "packages": [
         {
             "name": "psr/cache",
@@ -3367,16 +3367,16 @@
         },
         {
             "name": "sensiolabs-de/deptrac-shim",
-            "version": "0.10.0",
+            "version": "0.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs-de/deptrac-shim.git",
-                "reference": "103d48dc443aa724e09a2f88f4bf1964038d77ea"
+                "reference": "381921fb1bf165d8bf9dd4c6f6e142fc9cf87072"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs-de/deptrac-shim/zipball/103d48dc443aa724e09a2f88f4bf1964038d77ea",
-                "reference": "103d48dc443aa724e09a2f88f4bf1964038d77ea",
+                "url": "https://api.github.com/repos/sensiolabs-de/deptrac-shim/zipball/381921fb1bf165d8bf9dd4c6f6e142fc9cf87072",
+                "reference": "381921fb1bf165d8bf9dd4c6f6e142fc9cf87072",
                 "shasum": ""
             },
             "require": {
@@ -3410,9 +3410,9 @@
             "description": "deptrac phar distribution",
             "support": {
                 "issues": "https://github.com/sensiolabs-de/deptrac-shim/issues",
-                "source": "https://github.com/sensiolabs-de/deptrac-shim/tree/0.10.0"
+                "source": "https://github.com/sensiolabs-de/deptrac-shim/tree/0.10.1"
             },
-            "time": "2020-11-20T15:59:05+00:00"
+            "time": "2020-12-04T08:07:33+00:00"
         },
         {
             "name": "symfony/browser-kit",

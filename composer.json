@@ -19,8 +19,8 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.12.57",
-        "sensiolabs-de/deptrac-shim": "^0.10.0",
+        "phpstan/phpstan": "^0.12.58",
+        "sensiolabs-de/deptrac-shim": "^0.10.1",
         "symfony/browser-kit": "^5.1",
         "symfony/css-selector": "^5.1",
         "symfony/maker-bundle": "^1.24",

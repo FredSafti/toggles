@@ -25,8 +25,8 @@ services:
     Infrastructure\:
         resource: '../src/Infrastructure/'
         exclude:
-            - '../src/Infrastrucutre/Symfony/DependencyInjection/'
-            - '../src/Infrastrucutre/Symfony/Kernel.php'
+            - '../src/Infrastructure/Symfony/DependencyInjection/'
+            - '../src/Infrastructure/Symfony/Kernel.php'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
