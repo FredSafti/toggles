@@ -8,6 +8,9 @@
     "php": {
         "version": "7.4"
     },
+    "php-ds/php-ds": {
+        "version": "v1.3.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
